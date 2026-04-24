@@ -1,10 +1,11 @@
 # 08 — Frozen-Basis Transfer
 
-**Experiment script**: `SVDomain/run_frozen_basis_transfer.py`
-**Source bundle**: `models/ml_selectors/es_svd_ms_rr_r1.pkl` (math+science, slot-100)
-**Data stores**:
-  - Main (labeled): `results/cache/es_svd_ms_rr_r1/cache_all_547b9060debe139e.pkl`
-  - RL:  `results/cache/export_rl_checkpoint_ranking_from_svd_models/feature_store_all_ref030_05edbff25fbfa65b.pkl`
+**Compact-repo status**: artifact note  
+**What is kept here**:
+  - `results/tables/frozen_basis_transfer_matrix.csv`
+  - `results/tables/frozen_basis_transfer_deltas.csv`
+  - `results/figures/frozen_basis_transfer.png`
+**Provenance note**: 原始实验依赖内部 bundle / cache；本仓库当前保留的是可公开引用的结果物与说明。  
 **Date**: 2026-04-11
 
 ---
@@ -96,37 +97,25 @@ controlled 3-way ablation.
 
 ### 5.2 Headline Claim Assessment
 
-The SVDomain "shared low-rank basis" claim is **strongly supported**:
+更稳妥的结论是：**shared-basis transfer 在 math / science EarlyStop 上基本成立，在 RL ranking 上给出最干净的支持性证据。**
 
 1. **Within-distribution transfer** (math → math, math+science → science):
-   Frozen basis is within ±0.002 AUROC of task-specific retrain — well within
-   the standard error (≈0.01–0.06).
+   Frozen basis 与 task-specific 几乎重合，说明在这些设置里“固定 basis + 新线性头”是可信的压缩口径。
 
 2. **Cross-domain transfer** (math → coding):
-   Frozen basis **wins** (+0.7 pp AUROC). The math-derived SVD subspace captures
-   a signal that survives domain shift from reasoning math to live coding
-   evaluation. A per-fold fresh refit with only ~9 000 coding samples is noisier.
+   frozen basis 数值上略优于 task-specific，但两者都接近 chance，因此不适合被当成强 claim。
 
 3. **Task transfer** (classification → ordinal ranking):
-   Frozen basis **wins** on RL checkpoint ranking (+2.7 pp Spearman ρ vs.
-   task_specific; +31.8 pp vs. no_svd). The low-rank representation learned from
-   math reasoning transfers directly to ranking RL checkpoints by training
-   progress — supporting the paper's claim that the SVD basis captures a latent
-   quality signal that is task-agnostic.
+   RL checkpoint ranking 上，frozen basis 优于 task_specific 和 no_svd；这一项更适合作为共享 latent object 的支持性证据。
 
 ### 5.3 Paper Recommendation
 
-**Use "strong transfer" framing for all five tasks.**
+推荐口径不是“强 transfer 统一成立”，而是：
 
-- Earlystop/math and bestofn/math: quote frozen_basis ≈ task_specific (within
-  noise), emphasising that **no task-specific SVD retraining is needed**.
-- Earlystop/coding: flag as **unexpected win** — the frozen math basis
-  outperforms a from-scratch coding SVD, a counter-intuitive result that
-  strengthens the universality claim.
-- RL ranking: the frozen basis outperforms both task-specific SVD and the
-  no-SVD baseline by substantial margins (+5% and +120% relative respectively),
-  demonstrating that the low-rank representation generalises to qualitatively
-  different downstream tasks.
+- EarlyStop / math 与 science：**near-lossless reuse**
+- BestOfN / math：**small gap, still competitive**
+- RL ranking：**supporting win**
+- coding：**do not headline**
 
 ### 5.4 Caveats
 
@@ -151,25 +140,12 @@ The SVDomain "shared low-rank basis" claim is **strongly supported**:
 
 ---
 
-## 6. Reproduce
+## 6. Reproduction boundary
 
-```bash
-# Quick (2 folds, math only)
-python3 SVDomain/run_frozen_basis_transfer.py \
-  --bundle-path models/ml_selectors/es_svd_ms_rr_r1.pkl \
-  --cache-root MUI_HUB/cache \
-  --rl-cache-root /home/jovyan/public-ro/NAD_RL/math5000RL_neuron_analysis/cache \
-  --domains math --anchor-pct 100 --n-splits 2 \
-  --workers 16 --out-dir results/tables
+完整复现实验仍依赖外部 `NAD_Next` 代码栈与内部 bundle / cache。
 
-# Full (5 folds, all domains)
-python3 SVDomain/run_frozen_basis_transfer.py \
-  --bundle-path models/ml_selectors/es_svd_ms_rr_r1.pkl \
-  --cache-root MUI_HUB/cache \
-  --domains math,science,coding \
-  --anchor-pct 100 --n-splits 5 \
-  --workers 16 --out-dir results/tables
-```
+因此在这个 compact repo 里，这一节更适合被理解为：
 
-Note: run with `--feature-cache-dir results/cache/frozen_basis_transfer` to
-cache the extracted features; omit on re-runs to reuse the existing cache.
+- 结果物已经保留；
+- 方法假设已经保留；
+- 但训练与导出环境没有被完整 vendored 进来。

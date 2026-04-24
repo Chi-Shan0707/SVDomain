@@ -1,10 +1,12 @@
 # 11. Cross-Anchor Transfer
 
-**Experiment script**: `SVDomain/run_cross_anchor_transfer.py`
-**Source bundle**: `models/ml_selectors/es_svd_ms_rr_r1.pkl`
+**Experiment script**: `run_cross_anchor_transfer.py`
+**Source bundle**: original internal `es_svd_ms_rr_r1` bundle
 **Anchors**: `10, 40, 70, 100`
 **Domains**: `math, science`
 **Date**: 2026-04-12
+
+> Compact-repo note: 这里保留的是 paper-facing summary tables 与说明；内部 bundle / cache 路径只作为 provenance，不再被当成“开箱即用”承诺。
 
 ---
 

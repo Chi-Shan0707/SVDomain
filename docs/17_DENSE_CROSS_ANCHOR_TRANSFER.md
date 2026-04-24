@@ -2,11 +2,13 @@
 
 This note upgrades the earlier sparse `10 / 40 / 70 / 100` cross-anchor analysis into a dense all-to-all `10 / 20 / ... / 100` transfer grid for `es_svd_ms_rr_r2`. The purpose is to answer a sharper paper question: is reusable basis transfer only a slot-100 phenomenon, or does it remain visible across the full reasoning trajectory?
 
+> Compact-repo note: 这里当前公开的是 dense-transfer 的结果表、图和说明；更重的内部训练依赖没有被一起 vendored 进来。
+
 ## 1. Paper-facing assets
 
 - Main note: `docs/17_DENSE_CROSS_ANCHOR_TRANSFER.md`
 - Standalone runner: `run_dense_cross_anchor_transfer.py`
-- Canonical implementation: sibling `NAD_Next/SVDomain/experiments/run_dense_cross_anchor_transfer.py`
+- Canonical implementation: sibling `NAD_Next` workspace
 - Tables:
   - `results/tables/dense_cross_anchor_transfer_matrix.csv`
   - `results/tables/dense_cross_anchor_transfer_deltas.csv`
