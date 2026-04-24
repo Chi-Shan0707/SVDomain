@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "SVD_Domain"
+message: "If this cleaned evidence pack is useful, please cite the repository."
+type: software
+authors:
+  - given-names: "Yuhan"
+    family-names: "Chi"
+    affiliation: "Fudan University"
+abstract: "Curated evidence pack for domain-conditioned low-rank analysis of chain-of-thought traces."
+repository-code: "https://github.com/Chi-Shan0707/SVD_Domain"
+url: "https://github.com/Chi-Shan0707/SVD_Domain"
+license: "Apache-2.0"
+keywords:
+  - chain-of-thought
+  - low-rank analysis
+  - svd
+  - transfer
+  - interpretability
+

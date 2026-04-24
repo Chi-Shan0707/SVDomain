@@ -1,0 +1,3 @@
+task,method_name,eval_split,spearman_rho,pearson_r,kendall_tau,top1_hit,top3_hit
+checkpoint_correlation,es_svd_math_rr_r1__math5000rl_slot100_meanconf,offline_local,0.5727,0.7633,0.4182,0,0
+checkpoint_correlation,es_svd_math_rr_r1__math5000rl_slot100_meanconf,blind_eval,0.7364,0.8398,0.6000,0,0
