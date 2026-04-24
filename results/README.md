@@ -12,6 +12,8 @@
   - 当前仅保留 low-rank necessity 对应的机器可读摘要。
 - `summary_metrics.json`
   - 一个更小、更聚焦的 headline metrics 摘要。
+- `comparison_tables.md`
+  - 当前 clean repo 的跨主题摘要表，适合快速浏览。
 
 ## 当前分组
 
@@ -52,10 +54,19 @@
 ### RL checkpoint ranking
 
 - `tables/checkpoint_correlation_summary.csv`
+- `tables/checkpoint_ranking_summary.csv`
+- `tables/rl_linear_head_summary.csv`
+
+## 推荐浏览顺序
+
+如果只想快速抓重点，建议：
+
+1. `summary_metrics.json`
+2. `comparison_tables.md`
+3. 需要展开时再进入 `tables/` 和 `figures/`
 
 ## 当前原则
 
 - 只保留正文叙事真正需要的结果；
 - 不保留大体积 submission / cache / exploratory tables；
 - 后续若继续扩充，优先补“已经在 README 里被提到但尚未收录的最小证据”。
-

@@ -87,7 +87,15 @@
       "spearman_rho": 0.7364,
       "pearson_r": 0.8398,
       "kendall_tau": 0.6
+    },
+    "linear_head_winner": {
+      "head_name": "smoothness_regularized_linear",
+      "family": "trajectory",
+      "spearman_rho": 0.590909,
+      "kendall_tau": 0.490909,
+      "pearson_r": 0.8347,
+      "rmse": 0.327043,
+      "ece": 0.017479
     }
   }
 }
-

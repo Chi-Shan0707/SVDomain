@@ -26,4 +26,5 @@
   - `dense_cross_anchor_transfer_summary.csv`
 - RL checkpoint ranking
   - `checkpoint_correlation_summary.csv`
-
+  - `checkpoint_ranking_summary.csv`
+  - `rl_linear_head_summary.csv`

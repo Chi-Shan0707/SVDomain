@@ -14,6 +14,13 @@
 - `../run_cross_anchor_transfer.py`
 - `../run_dense_anchor_earlystop.py`
 - `../run_dense_cross_anchor_transfer.py`
+- `run_rl_checkpoint_ranking_linear_heads.py`
 
 这些脚本更多是**方法入口与输出协议说明**，而不是“开箱即用的完整复现环境”。
 
+## 额外保留的代表性脚本
+
+- `run_rl_checkpoint_ranking_linear_heads.py`
+  - 当前保留下来的少数较完整脚本之一；
+  - 它对应 `docs/20_RL_CHECKPOINT_RANKING.md` 里的 linear-head sweep；
+  - 保留它，是因为它相对自洽，且确实有助于别人理解 RL ranking 这条 supporting branch。

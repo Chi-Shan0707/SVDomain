@@ -17,7 +17,7 @@
 - `17_DENSE_CROSS_ANCHOR_TRANSFER.md`
   - dense `10 / 20 / ... / 100` 网格下 basis maturity 的更细解释。
 - `20_RL_CHECKPOINT_RANKING.md`
-  - RL checkpoint ranking 的支持性证据。
+  - RL checkpoint ranking 的支持性证据，包括 blind correlation 与线性头 sweep 摘要。
 
 ## 阅读顺序
 
@@ -34,4 +34,3 @@
 ## 当前策略
 
 这个目录有意不再收录大量实验备忘录、battle history、workshop 草稿或 late-round exploratory notes。
-

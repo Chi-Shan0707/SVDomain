@@ -18,7 +18,17 @@
 | Sparse cross-anchor transfer | `math` 的 basis 基本贯穿整条 trajectory 可复用；`science` 更依赖 basis 成熟度 | `results/tables/cross_anchor_transfer_summary.csv` |
 | Dense cross-anchor transfer | 最可迁移的 basis 往往不是最后一个 anchor，而是中段 anchor | `results/tables/dense_cross_anchor_transfer_summary.csv` |
 | Dense-anchor timing | `math` 很早就趋于饱和；`science` 则是“早期已有信号，后期继续 refinement” | `results/tables/dense_anchor_main_table.csv` |
-| RL checkpoint ranking | 这是支持性证据，不是主故事，但它说明同一 latent object 也能刻画 checkpoint 顺序结构 | `results/tables/checkpoint_correlation_summary.csv` |
+| RL checkpoint ranking | 这是支持性证据，不是主故事，但它说明同一 latent object 也能刻画 checkpoint 顺序结构 | `results/tables/checkpoint_correlation_summary.csv` / `results/tables/rl_linear_head_summary.csv` |
+
+## 可视化速览
+
+### 1. Frozen-basis transfer
+
+![Frozen basis transfer](results/figures/frozen_basis_transfer.png)
+
+### 2. Dense-anchor maturity
+
+![Dense anchor maturity](results/figures/dense_anchor_maturity.png)
 
 ## README 级别的核心发现
 
@@ -67,6 +77,23 @@
 - `math` 是 **early-saturating**
 - `science` 是 **early-usable but later-refined**
 
+### 5. RL 还可以再讲得更完整一点
+
+- blind-eval correlation 摘要仍然保留：
+  - `Spearman ρ = 0.7364`
+  - `Pearson r = 0.8398`
+  - `Kendall τ = 0.6000`
+- 线性头 sweep 里，当前最值得保留的结果是：
+  - `smoothness_regularized_linear`
+  - `Spearman ρ = 0.5909`
+  - `Kendall τ = 0.4909`
+  - `Pearson r = 0.8347`
+  - `RMSE = 0.327`
+
+所以 RL 的更好表述是：
+
+> 它不是“最强主结论”，但它是一个很像样的 supporting slice：固定特征管线下，低秩对象对 checkpoint-order structure 确实有解释力。
+
 ## 仓库骨架
 
 ```text
@@ -98,6 +125,7 @@ SVD_Domain/
 - **保留**：论文叙事里最稳定、最能被现有表格直接支撑的证据。
 - **暂不强调**：coding 分支。原始材料里这部分结论还不够稳定，不适合作为当前 README 主线。
 - **不内置**：完整 cache、submission 文件、viewer、workshop 草稿、大量 exploratory notes。
+- **谨慎加入**：只有那些不太依赖内部私有环境、又确实能帮助别人理解方法的脚本，才会逐步补进来。
 
 ## 复现边界
 
@@ -112,4 +140,4 @@ SVD_Domain/
 - 文档索引：`docs/README.md`
 - 结果索引：`results/README.md`
 - 本地 bootstrap 说明：`svdomain/README.md`
-
+- 对比总表：`results/comparison_tables.md`
