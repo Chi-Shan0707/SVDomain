@@ -1,65 +1,62 @@
-[English](README.md) | [中文](README.zh-CN.md)
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh-CN.md">中文</a>
+</p>
 
-# SVD_Domain
+<h1 align="center">SVD_Domain</h1>
 
-`SVD_Domain` 是从原始 `SVDomain` 中整理出来的一个英文主仓库，目标很简单：把真正有用的结论、表格、图和入口脚本留下来，把杂乱的草稿、缓存和提交文件拿掉。
+<p align="center">
+  <em>一个以英文为主、中文可切换的精简研究仓库。</em>
+</p>
 
-## 这个仓库现在讲什么
+<p align="center">
+  <a href="docs/00_EXECUTIVE_SUMMARY.md">English Overview</a> ·
+  <a href="docs/00_EXECUTIVE_SUMMARY.zh-CN.md">中文总览</a> ·
+  <a href="results/comparison_tables.md">结果总表</a>
+</p>
 
-当前版本主要围绕五条线索：
+这个仓库现在的定位很明确：它不是原始大仓库的完整镜像，而是一个**保留关键证据、去掉杂乱枝叶**的公开版本。
 
-| 主题 | 当前结论 | 主要证据 |
-| --- | --- | --- |
-| Low-rank sufficiency | 中等 rank 已经足够，重点是紧凑性而不是“全面碾压” | `results/tables/lowrank_smallest_sufficient_rank.csv` |
-| Frozen-basis transfer | 固定 basis 加一个新线性头，很多时候已经够用 | `results/tables/frozen_basis_transfer_deltas.csv` |
-| Sparse cross-anchor transfer | `math` 跨 anchor 更稳，`science` 更依赖 basis 成熟度 | `results/tables/cross_anchor_transfer_summary.csv` |
-| Dense-anchor timing | `math` 很早饱和，`science` 早期可用但后期仍会抬升 | `results/tables/dense_anchor_main_table.csv` |
-| RL checkpoint ranking | 同一 latent object 对 checkpoint 顺序也有解释力 | `results/tables/checkpoint_correlation_summary.csv` |
+## 现在保留的主线
 
-## 快速结论
-
-- `math`：best rank `24`，但 smallest sufficient rank 已经是 `16`
-- `science` / `ms`：smallest sufficient rank 都是 `24`
-- `earlystop / math`：frozen basis `0.9655`，task-specific `0.9658`
-- `earlystop / science`：`0.7711` vs `0.7731`
-- `math 10→100`：只差 `-0.19` pts
-- `science 10→100`：会掉到 `-5.60` pts
-- dense transfer 里最可迁移 source anchor：
-  - `math` 是 `30%`
-  - `science` 是 `50%`
-
-一句话概括：
-
-> 这个仓库最值得保留的发现，不是“一个 basis 解决一切”，而是“low-rank basis 的可复用性强烈依赖 domain 和 anchor maturity”。
+- **Low-rank sufficiency**：中等 rank 已经足够，重点是紧凑性而不是“全面碾压”
+- **Frozen-basis transfer**：固定 basis + 新线性头，在 math / science 上已经相当接近
+- **Cross-anchor transfer**：`math` 更稳，`science` 更依赖 basis 成熟度
+- **Dense-anchor timing**：`math` 很早饱和，`science` 早期可用但后期仍会 refinement
+- **RL checkpoint ranking**：同一 latent object 对 checkpoint 顺序结构也有解释力
 
 ## 图
 
-<table>
-  <tr>
-    <td width="50%">
-      <img src="results/figures/frozen_basis_transfer.png" alt="Frozen-basis transfer" />
-      <br />
-      <sub>Frozen-basis transfer</sub>
-    </td>
-    <td width="50%">
-      <img src="results/figures/dense_anchor_maturity.png" alt="Dense-anchor maturity" />
-      <br />
-      <sub>Dense-anchor maturity</sub>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="results/figures/frozen_basis_transfer.png" width="94%" alt="Frozen-basis transfer" />
+</p>
 
-## 使用方式
+<p align="center">
+  <sub><strong>Frozen-basis transfer.</strong> 这是当前最适合拿来讲 shared-basis reuse 的图。</sub>
+</p>
 
-- 英文总览：`docs/00_EXECUTIVE_SUMMARY.md`
+<p align="center">
+  <img src="results/figures/dense_anchor_maturity.png" width="76%" alt="Dense-anchor maturity" />
+</p>
+
+<p align="center">
+  <sub><strong>Dense-anchor maturity.</strong> 这张图最适合解释为什么 math 和 science 的 transfer 口径不一样。</sub>
+</p>
+
+## 一句话总结
+
+> 这个仓库最适合讲的，不是“一个 basis 解决一切”，而是“low-rank basis 的可复用性强烈依赖 domain 和 anchor maturity”。
+
+## 建议怎么读
+
+- 英文首页：`README.md`
+- 中文总览：`docs/00_EXECUTIVE_SUMMARY.zh-CN.md`
 - 文档索引：`docs/README.md`
 - 结果索引：`results/README.md`
-- 总对比表：`results/comparison_tables.md`
+- 结果总表：`results/comparison_tables.md`
 
 ## 复现边界
 
-这个仓库不是完整训练环境。
+- 根目录 `run_*.py` 是公开入口包装器；
+- 一部分实验仍依赖外部 `NAD_Next` 与本地 cache / model artifacts；
+- 当前版本更像一个干净的 artifact pack，而不是完整训练环境。
 
-- 根目录 `run_*.py` 更像公开入口包装器；
-- 一部分实验仍依赖外部 `NAD_Next` 和本地 cache / model artifacts；
-- 当前仓库的重点，是把“结论 + 证据 + 入口”整理成一个更干净的公开版本。

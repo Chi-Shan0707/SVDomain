@@ -1,103 +1,101 @@
-[English](README.md) | [中文](README.zh-CN.md)
+<p align="center">
+  <a href="README.md">English</a> · <a href="README.zh-CN.md">中文</a>
+</p>
 
-# SVD_Domain
+<h1 align="center">SVD_Domain</h1>
 
-`SVD_Domain` is a cleaned, English-first subset of the original `SVDomain` repository.
-It keeps a small set of docs, tables, figures, and entry scripts that support the main empirical story, and drops the workshop notes, caches, submissions, and other clutter that made the original tree hard to browse.
+<p align="center">
+  <em>Evidence-first notes and artifacts on low-rank basis reuse in reasoning traces.</em>
+</p>
 
-## What this repo is for
+<p align="center">
+  <img alt="Focus" src="https://img.shields.io/badge/focus-low--rank%20basis%20reuse-0F766E" />
+  <img alt="Scope" src="https://img.shields.io/badge/scope-math%20%7C%20science%20%7C%20RL-1D4ED8" />
+  <img alt="Style" src="https://img.shields.io/badge/repo-cleaned%20artifact%20pack-7C3AED" />
+</p>
 
-This repo is meant to answer a narrow question:
+<p align="center">
+  <a href="docs/00_EXECUTIVE_SUMMARY.md">Overview</a> ·
+  <a href="docs/README.md">Docs</a> ·
+  <a href="results/README.md">Results</a> ·
+  <a href="results/comparison_tables.md">Comparison Tables</a>
+</p>
 
-> When does a low-rank basis become useful, and when does that basis transfer across anchors or tasks?
+`SVD_Domain` is a compact, cleaned subset of the original `SVDomain` workspace. It does not try to preserve every branch of the old repo. Instead, it keeps the notes, tables, figures, and lightweight entrypoints that still support a clear story:
 
-The current public subset is built around five evidence threads:
+- moderate low rank is already sufficient;
+- basis reuse is real, but strongly domain-dependent;
+- anchor maturity matters;
+- the same latent object also carries checkpoint-order structure.
 
-| Topic | Main point | Primary artifact |
-| --- | --- | --- |
-| Low-rank sufficiency | Moderate rank is enough; the story is compactness, not domination | `results/tables/lowrank_smallest_sufficient_rank.csv` |
-| Frozen-basis transfer | A fixed basis plus a new linear head is often enough | `results/tables/frozen_basis_transfer_deltas.csv` |
-| Sparse cross-anchor transfer | Math transfers broadly; science is more maturity-sensitive | `results/tables/cross_anchor_transfer_summary.csv` |
-| Dense-anchor timing | Math saturates early; science is usable early but still improves later | `results/tables/dense_anchor_main_table.csv` |
-| RL checkpoint ranking | The same latent object also carries checkpoint-order signal | `results/tables/checkpoint_correlation_summary.csv` |
+## Featured Results
 
-## At a glance
+<p align="center">
+  <img src="results/figures/frozen_basis_transfer.png" width="94%" alt="Frozen-basis transfer" />
+</p>
 
-### Low-rank sufficiency
+<p align="center">
+  <sub><strong>Frozen-basis transfer at slot 100.</strong> The fixed basis stays near task-specific retraining on math and science, while RL ranking is the cleanest supporting win.</sub>
+</p>
 
-- `math`: best rank `24`, smallest sufficient rank `16`
-- `science`: smallest sufficient rank `24`
-- `ms`: smallest sufficient rank `24`
+<p align="center">
+  <img src="results/figures/dense_anchor_maturity.png" width="76%" alt="Dense-anchor maturity" />
+</p>
 
-The practical reading is simple: rank `16–24` already captures most of the useful signal.
+<p align="center">
+  <sub><strong>Dense-anchor timing.</strong> Math saturates early; science becomes useful early but still improves later.</sub>
+</p>
 
-### Frozen-basis transfer at slot 100
-
-- `earlystop / math`: `0.9655` vs `0.9658` task-specific
-- `earlystop / science`: `0.7711` vs `0.7731` task-specific
-- `rl_ranking / math`: `ρ = 0.5818` vs `0.5545` task-specific
-
-This is the cleanest support for the shared-basis story.
-
-### Anchor-maturity story
-
-- Sparse transfer:
-  - `math 10→100`: gap `-0.19` pts
-  - `science 10→100`: gap `-5.60` pts
-- Dense transfer:
-  - best reusable source anchor is `30%` for math
-  - best reusable source anchor is `50%` for science
-
-The main observation is that the most reusable basis is often a **mid-trajectory basis**, not the final anchor.
-
-### Dense-anchor timing
-
-- `math`: AUROC `0.9357` already at `10%`; plateau around `50%`
-- `science`: AUROC `0.7673` at `10%`; reaches `95%` of final by `20%`
-
-That is why the repo frames math as **early-saturating** and science as **early-usable but later-refined**.
-
-## Figures
+## Core Findings
 
 <table>
   <tr>
-    <td width="50%">
-      <img src="results/figures/frozen_basis_transfer.png" alt="Frozen-basis transfer" />
+    <td valign="top" width="33%">
+      <strong>Low-rank sufficiency</strong><br />
       <br />
-      <sub>Frozen-basis transfer</sub>
+      <code>math</code>: best rank <code>24</code>, smallest sufficient rank <code>16</code><br />
+      <code>science</code>: smallest sufficient rank <code>24</code><br />
+      <code>ms</code>: smallest sufficient rank <code>24</code>
     </td>
-    <td width="50%">
-      <img src="results/figures/dense_anchor_maturity.png" alt="Dense-anchor maturity" />
+    <td valign="top" width="33%">
+      <strong>Basis transfer</strong><br />
       <br />
-      <sub>Dense-anchor maturity</sub>
+      Slot-<code>100</code> frozen-basis transfer is nearly tied with task-specific retraining on math and science.<br />
+      The strongest reusable dense source anchor is <code>30%</code> for math and <code>50%</code> for science.
+    </td>
+    <td valign="top" width="33%">
+      <strong>Anchor maturity</strong><br />
+      <br />
+      <code>math 10→100</code>: gap <code>-0.19</code> pts<br />
+      <code>science 10→100</code>: gap <code>-5.60</code> pts<br />
+      The most reusable basis is often a mid-trajectory basis, not the final anchor.
     </td>
   </tr>
 </table>
 
-## Repository layout
+## What Is in This Repo
 
-```text
-SVD_Domain/
-├── README.md
-├── README.zh-CN.md
-├── docs/
-├── results/
-├── scripts/
-├── svdomain/
-└── run_*.py
-```
+- `docs/`
+  - compact research notes for low-rank necessity, basis transfer, anchor transfer, dense timing, and RL ranking
+- `results/`
+  - summary tables, a few stable figures, and small machine-readable summaries
+- `run_*.py`
+  - public entry wrappers for the retained experiment families
+- `scripts/`
+  - a small number of supporting scripts that still help explain the exported artifacts
 
-## Reproduction boundary
+## Scope
 
 This is not a fully vendored training environment.
 
-- The retained `run_*.py` files are public entry wrappers.
-- Some experiments still depend on the sibling `NAD_Next` workspace and local cache/model artifacts.
-- The public value of this repo is the **artifact contract**: the docs, tables, figures, and lightweight entrypoints are all in one place.
+- Some experiment families still depend on the sibling `NAD_Next` workspace and local cache/model artifacts.
+- The repo is intentionally selective: no workshop notes, no full cache dumps, no submission bundles, and no oversized exploratory branches.
+- The public value here is the artifact contract: a clean path from claim → note → table → figure.
 
-## Where to start
+## Start Here
 
-- Overview: `docs/00_EXECUTIVE_SUMMARY.md`
-- Doc index: `docs/README.md`
-- Result index: `results/README.md`
-- Cross-topic summary: `results/comparison_tables.md`
+- `docs/00_EXECUTIVE_SUMMARY.md`
+- `docs/07_LOWRANK_NECESSITY.md`
+- `docs/11_CROSS_ANCHOR_TRANSFER.md`
+- `results/comparison_tables.md`
+
