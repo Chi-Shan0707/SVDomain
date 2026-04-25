@@ -2,16 +2,16 @@
 
 # Sparse Cross-Anchor Transfer
 
-This note covers the sparse `10 / 40 / 70 / 100` transfer study.
+这份说明覆盖 sparse `10 / 40 / 70 / 100` anchor transfer。
 
-## Summary table
+## 摘要表
 
 | Domain | Diagonal gap | Focus off-diagonal gap | Best reusable source anchor |
 | --- | ---: | ---: | ---: |
 | `math` | `-0.11` pts | `-0.32` pts | `40%` |
 | `science` | `-0.77` pts | `-1.98` pts | `100%` |
 
-## Highlighted pairs
+## 代表性 pair
 
 | Pair | Frozen | Task-specific | Gap |
 | --- | ---: | ---: | ---: |
@@ -20,13 +20,13 @@ This note covers the sparse `10 / 40 / 70 / 100` transfer study.
 | `science 100→40` | `0.7461` | `0.7468` | `-0.07` pts |
 | `science 10→100` | `0.7171` | `0.7731` | `-5.60` pts |
 
-## Reading
+## 当前读法
 
-- In math, the basis is broadly reusable across anchors.
-- In science, late-anchor bases remain useful, but early-to-late transfer is much weaker.
-- This is the first clear sign that **basis maturity is domain-dependent**.
+- `math`：basis 在不同 anchor 之间基本可复用；
+- `science`：late-anchor basis 还行，但 early-to-late 明显更弱；
+- 这说明 **basis maturity 的问题在不同 domain 上并不一样**。
 
-## Artifacts
+## 对应结果物
 
 - `results/tables/cross_anchor_transfer_matrix.csv`
 - `results/tables/cross_anchor_transfer_deltas.csv`

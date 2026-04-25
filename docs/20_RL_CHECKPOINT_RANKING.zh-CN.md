@@ -2,16 +2,16 @@
 
 # RL Checkpoint Ranking
 
-This is a supporting branch, not the main headline. Its value is that the same low-rank object also carries checkpoint-order structure.
+这是一条 supporting branch，不是主标题。它的价值在于：同一类 low-rank object 不只对 EarlyStop 有用，对 checkpoint 顺序结构也有可用信号。
 
-## Correlation summary
+## 相关性摘要
 
 | Split | Spearman ρ | Pearson r | Kendall τ |
 | --- | ---: | ---: | ---: |
 | `offline_local` | `0.5727` | `0.7633` | `0.4182` |
 | `blind_eval` | `0.7364` | `0.8398` | `0.6000` |
 
-## Linear-head sweep
+## 线性头 sweep
 
 | Head | Family | Spearman ρ | Kendall τ | Pearson r | RMSE | ECE |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -19,13 +19,13 @@ This is a supporting branch, not the main headline. Its value is that the same l
 | `fused_lasso_tv_linear` | trajectory | `0.5818` | `0.4545` | `0.8359` | `0.3285` | `0.0196` |
 | `elastic_net` | pointwise | `0.5818` | `0.4545` | `0.8316` | `0.3239` | `0.0250` |
 
-## Reading
+## 当前读法
 
-- The best result is still linear or near-linear.
-- The point is not that one head wins by a huge margin.
-- The point is that checkpoint-order signal survives under a compact, interpretable setup.
+- 最好的结果依然来自线性或近线性头；
+- 这里最重要的不是“某个 head 遥遥领先”；
+- 而是 checkpoint-order signal 在紧凑、可解释的设定下仍然存在。
 
-## Artifacts
+## 对应结果物
 
 - `results/tables/checkpoint_correlation_summary.csv`
 - `results/tables/checkpoint_ranking_summary.csv`

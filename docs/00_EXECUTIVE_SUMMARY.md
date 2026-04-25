@@ -1,51 +1,44 @@
+[English](00_EXECUTIVE_SUMMARY.md) | [中文](00_EXECUTIVE_SUMMARY.zh-CN.md)
+
 # Executive Summary
 
-`SVD_Domain` 是从原始 `SVDomain` 中整理出来的一个**精简证据仓库**。
+`SVD_Domain` is a cleaned subset of the original `SVDomain` repository. The goal is not to preserve every branch of the old workspace. The goal is to keep the parts that still support a clear, defensible story.
 
-它当前更合适的定位，不是“已经完成全部主张的完整论文代码仓”，而是：
+## Core reading
 
-> 一个围绕 low-rank basis、basis transfer、anchor maturity 与 checkpoint-order structure 的公开 evidence pack。
+The current subset supports five claims:
 
-## 当前最稳的结论
+1. **Moderate low rank is already sufficient**
+   - `math`: smallest sufficient rank `16`
+   - `science`: smallest sufficient rank `24`
+   - `ms`: smallest sufficient rank `24`
 
-### 1. Moderate low rank is already sufficient
+2. **Frozen-basis transfer is real**
+   - at slot `100`, frozen-basis EarlyStop is nearly tied with task-specific retraining on math and science
+   - on RL ranking, the frozen basis is the cleanest supporting win
 
-- `math` 的 smallest sufficient rank 是 `16`；
-- `science` 和 `ms` 的 smallest sufficient rank 都是 `24`；
-- 所以更稳的说法是：**rank `16–24` 已经足够**。
+3. **Cross-anchor transfer is domain-dependent**
+   - math bases stay reusable across the trajectory
+   - science bases are more maturity-sensitive, especially for early-to-late reuse
 
-### 2. Frozen basis transfer is real
+4. **The most reusable basis is often not the final anchor**
+   - best dense source anchor is `30%` for math
+   - best dense source anchor is `50%` for science
 
-- `math` 与 `science` 的 slot-100 EarlyStop 上，frozen basis 与 task-specific 基本接近；
-- `RL ranking / math` 上，frozen basis 反而更强：`ρ = 0.5818` vs `0.5545`。
+5. **Dense-anchor timing explains the transfer pattern**
+   - math saturates early
+   - science becomes useful early but keeps improving later
 
-### 3. Cross-anchor transfer has domain asymmetry
+## What this repo does not claim
 
-- `math` 的 basis 在整条 trajectory 上更可复用；
-- `science` 的 basis 更依赖成熟度，尤其 early-to-late 的迁移更容易退化。
+- it does not claim that one basis solves every downstream task
+- it does not claim that low-rank beats no-SVD everywhere
+- it does not use coding as the headline success case
 
-### 4. The best transferable basis is often mid-trajectory
+## What is retained
 
-- dense 网格里，`math` 最优 source anchor 是 `30%`；
-- `science` 最优 source anchor 是 `50%`。
-
-这说明 basis transfer 不是“最终 anchor 独有的现象”。
-
-### 5. Dense-anchor timing tells a clean story
-
-- `math`：早期强信号，`10%` 就达到 final AUROC 的 `95%`，`50%` 左右 plateau；
-- `science`：`10%` 已可用，但后期继续 refinement，`20%` 达到 `95% final`，`40%` 左右 plateau。
-
-## 当前不主打什么
-
-- 不主打 coding。
-- 不主打“单一 basis 解决一切”。
-- 不主打“low-rank 在所有指标上严格优于 no-SVD”。
-
-## 这个仓库保留什么
-
-- 可直接引用的说明文档；
-- 少量 summary tables / figures；
-- 少量公开 wrapper 脚本；
-- 一个更干净的目录骨架，便于后续继续增量清洗。
+- concise docs
+- summary tables and a few figures
+- lightweight public entry scripts
+- a smaller repo layout that is easier to browse and cite
 
