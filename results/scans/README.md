@@ -1,11 +1,9 @@
 # Scans
 
-这里放机器可读的紧凑摘要。
-
-当前仅保留：
+This directory only keeps the machine-readable low-rank necessity summaries:
 
 - `lowrank_necessity/lowrank_necessity_summary.json`
 - `lowrank_necessity/lowrank_necessity_eval.json`
 
-原因很简单：这两份文件能补足 `07_LOWRANK_NECESSITY.md` 的可追溯性，同时体积仍然很小。
+They are small enough to keep and directly support `docs/07_LOWRANK_NECESSITY.md`.
 
